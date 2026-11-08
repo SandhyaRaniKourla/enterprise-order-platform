@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="src/Services/Order/Order.Api/Order.Api.csproj" Id="db63bb35-6123-4243-b7af-5f7de94eb5bb" />
-  <Project Path="src/Services/Order/Order.Application/Order.Application/Order.Application.csproj" Id="b8436807-47ed-4ab5-836f-5c1de4253947" />
-  <Project Path="src/Services/Order/Order.Domain/Order.Domain/Order.Domain.csproj" Id="e70d051e-9aca-44c1-8e87-5bd12c193d45" />
-  <Project Path="src/Services/Order/Order.Infrastructure/ClassLibrary1/ClassLibrary1.csproj" Id="03d562bf-7741-4287-a396-9aff565f6b5a" />
-</Solution>
