@@ -8,7 +8,7 @@ namespace Order.Domain.Entities
     public class OrderItem
     {
         public Guid Id { get; private set; }
-        public int ProductId { get; private set; }
+        public Guid ProductId { get; private set; }
 
         public decimal UnitPrice { get; private set; }
 
@@ -19,11 +19,11 @@ namespace Order.Domain.Entities
             // Required by EF
         }
 
-        public OrderItem(int productId, decimal unitPrice, int quantity)
+        public OrderItem(Guid productId, decimal unitPrice, int quantity)
         {
-            if (productId <= 0)
+            if (productId == Guid.Empty)
             {
-                throw new ArgumentException("ProductId must be greater than zero", nameof(productId));
+                throw new ArgumentException("ProductId is required", nameof(productId));
             }
             if (unitPrice < 0)
             {
@@ -39,7 +39,7 @@ namespace Order.Domain.Entities
             Quantity = quantity;
         }
 
-        public decimal GetTotal() =>  return Quantity * UnitPrice;
+        public decimal GetTotal() => Quantity * UnitPrice;
 
     }
 }

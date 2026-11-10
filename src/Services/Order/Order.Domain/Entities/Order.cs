@@ -13,7 +13,7 @@ namespace Order.Domain.Entities
         public Guid CustomerId { get; private set; }
 
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
-        public Money TotalAmount { get; private set; } = null!;
+        public Money Total { get; private set; } = null!;
 
         public OrderStatus Status { get; private set; }
 
@@ -42,13 +42,13 @@ namespace Order.Domain.Entities
 
 
             Id = Guid.NewGuid();
-            CuustomerId = customerId;
+            CustomerId = customerId;
             _orderItems.AddRange(orderItems);
             Status = OrderStatus.Pending;
             OrderAt = DateTimeOffset.UtcNow;
 
             var total = _orderItems.Sum(item => item.GetTotal());
-            TotalAmount = Money(total, currency);
+            Total = new Money(total, currency);
 
         }
 
@@ -56,7 +56,7 @@ namespace Order.Domain.Entities
         {
             if(Status != OrderStatus.Pending)
             {
-                throw new InvalidOperationException($"Cannot reserve the inventory when status is {Status}")
+                throw new InvalidOperationException($"Cannot reserve the inventory when status is {Status}");
             }
             Status = OrderStatus.InventoryReserved;
         }
