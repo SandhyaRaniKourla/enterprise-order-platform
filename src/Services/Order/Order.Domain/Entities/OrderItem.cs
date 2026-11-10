@@ -38,6 +38,8 @@ namespace Order.Domain.Entities
             UnitPrice = unitPrice;
             Quantity = quantity;
         }
-        
+
+        public decimal GetTotal() =>  return Quantity * UnitPrice;
+
     }
 }
