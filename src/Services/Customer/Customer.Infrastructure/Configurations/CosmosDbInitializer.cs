@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,10 +11,10 @@ namespace Customer.Infrastructure.Configurations
         private readonly CosmosClient _cosmosClient;
         private readonly CosmosDbSettings _cosmosDbSettings;
 
-        public CosmosDbInitializer(CosmosClient cosmosClient, CosmosDbSettings cosmosDbSettings)
+        public CosmosDbInitializer(CosmosClient cosmosClient,IOptions<CosmosDbSettings> cosmosDbSettings)
         {
             _cosmosClient = cosmosClient ?? throw new ArgumentNullException(nameof(cosmosClient));
-            _cosmosDbSettings = cosmosDbSettings ?? throw new ArgumentNullException(nameof(cosmosDbSettings));
+            _cosmosDbSettings = cosmosDbSettings?.Value  ?? throw new ArgumentNullException(nameof(cosmosDbSettings));
         }
         public async Task InitializeAsync()
         {

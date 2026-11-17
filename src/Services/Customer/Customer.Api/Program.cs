@@ -10,7 +10,10 @@ builder.Services.AddOpenApi();
 builder.Services.AddCustomerInfrastructure(builder.Configuration);
 
 var app = builder.Build();
-await app.Services.GetRequiredService<CosmosDbInitializer>().InitializeAsync();
+var initializer = app.Services
+    .GetRequiredService<CosmosDbInitializer>();
+
+await initializer.InitializeAsync();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

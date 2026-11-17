@@ -14,6 +14,9 @@ namespace Customer.Infrastructure.Persistence
 
         public CosmosDbContext(CosmosClient cosmosClient, IConfiguration configuration)
         {
+            ArgumentNullException.ThrowIfNull(cosmosClient, nameof(cosmosClient));
+            ArgumentNullException.ThrowIfNull(configuration, nameof(configuration));
+
             var databaseName = configuration["DatabaseName"] ?? throw new InvalidOperationException("Db details are not available");
             var containerName = configuration["ContainerName"] ?? throw new InvalidOperationException("container details are not available");
             CosmosDatabase = cosmosClient.GetDatabase(databaseName);
