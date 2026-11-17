@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.ResourceManager.CosmosDB" Version="1.5.0" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.63.0-preview.1" />
+  </ItemGroup>
+
+</Project>

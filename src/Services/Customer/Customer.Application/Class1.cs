@@ -1,4 +1,4 @@
-﻿namespace OrderManagement.Domain
+﻿namespace Customer.Application
 {
     public class Class1
     {
