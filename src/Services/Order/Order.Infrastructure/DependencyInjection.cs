@@ -4,9 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Order.Application.Abstractions.Persistence;
 using Order.Infrastructure.Persistence;
 using Order.Infrastructure.Persistence.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Order.Infrastructure
 {
