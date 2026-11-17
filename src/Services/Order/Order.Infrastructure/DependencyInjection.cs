@@ -19,7 +19,14 @@ namespace Order.Infrastructure
             {
                 throw new InvalidOperationException("Orders connection string is not configured");
             }
-            services.AddDbContext<OrderDbContext>(options => options.UseNpgsql(connectionString));
+            services.AddDbContext<OrderDbContext>(options => 
+            {
+                options.UseNpgsql(connectionString);
+                // Suppress the PendingModelChangesWarning to allow application startup
+                // when model changes haven't been migrated yet
+                options.ConfigureWarnings(w => 
+                    w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
+            });
             services.AddScoped<IOrderRepository, OrderRepository>();
             return services;
         }

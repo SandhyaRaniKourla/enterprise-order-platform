@@ -1,24 +1,30 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Order.Domain.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Order.Domain.Entities;
 
 namespace Order.Infrastructure.Persistence.Configurations
 {
-    public class OrderConfigurations : IEntityTypeConfiguration<Order.Domain.Entities.Order>
+    public class OrderConfigurations
+        : IEntityTypeConfiguration<Order.Domain.Entities.Order>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Order.Domain.Entities.Order> builder)
+        public void Configure(EntityTypeBuilder<Order.Domain.Entities.Order> builder)
         {
             builder.ToTable("orders");
+
             builder.HasKey(o => o.Id);
 
-            builder.Property(o => o.CustomerId).IsRequired();
+            builder.Property(o => o.CustomerId)
+                .IsRequired();
+
             builder.Property(o => o.Status)
-                .HasConversion<String>()
+                .HasConversion<string>()
                 .HasMaxLength(50)
                 .IsRequired();
-            builder.Property(o => o.OrderAt).IsRequired();
+
+            builder.Property(o => o.OrderAt)
+                .IsRequired();
+
+            // Money value object
             builder.OwnsOne(order => order.Total, money =>
             {
                 money.Property(value => value.Amount)
@@ -35,12 +41,15 @@ namespace Order.Infrastructure.Persistence.Configurations
             builder.Navigation(order => order.Total)
                 .IsRequired();
 
+            // Order -> OrderItems relationship
             builder.HasMany(o => o.OrderItems)
                 .WithOne()
                 .HasForeignKey("OrderId")
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Navigation(o => o.OrderItems).UsePropertyAccessMode(PropertyAccessMode.Field);
+            builder.Navigation(o => o.OrderItems)
+                .HasField("_orderItems")
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }
